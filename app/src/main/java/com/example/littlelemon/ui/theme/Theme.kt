@@ -12,14 +12,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
+    primary = LittleLemonColors.Yellow,
+    secondary = LittleLemonColors.Yellow,
     tertiary = Pink80
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
+    primary = LittleLemonColors.Yellow,
+    secondary = LittleLemonColors.Yellow,
     tertiary = Pink40
 
     /* Other default colors to override
@@ -53,6 +53,7 @@ fun LittleLemonTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
-        content = content
+        content = content,
+        shapes = Shapes
     )
 }
