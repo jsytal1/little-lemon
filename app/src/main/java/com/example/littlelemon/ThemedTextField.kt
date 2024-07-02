@@ -21,7 +21,7 @@ import com.example.littlelemon.ui.theme.Typography
 fun ThemedTextField(
     value: String,
     label: String,
-    onValueChange: (String) -> Unit,
+    onValueChange: (String) -> Unit = {},
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default
 ) {
     OutlinedTextField(

@@ -9,4 +9,5 @@
     <string name="profile_button">Profile</string>
     <string name="logout">Logout</string>
     <string name="onboarding_error_message">Registration unsuccessful. Please enter all data.</string>
+    <string name="profile_information">Profile Information:</string>
 </resources>

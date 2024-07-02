@@ -13,12 +13,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -42,9 +45,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun AppScreen(sharedPreferences: SharedPreferences) {
-    Scaffold(topBar = {
-        TopBar()
-    }) {
+    Scaffold() {
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -52,23 +53,6 @@ private fun AppScreen(sharedPreferences: SharedPreferences) {
         ) {
             MyNavigation(sharedPreferences)
         }
-    }
-}
-
-@Composable
-fun TopBar() {
-    Row(
-        modifier = Modifier.fillMaxWidth().padding(top = 24.dp, bottom = 12.dp),
-        horizontalArrangement = Arrangement.SpaceAround
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.logo),
-            contentDescription = "Little Lemon Logo",
-            modifier = Modifier
-                .fillMaxWidth(.5f)
-                .align(Alignment.CenterVertically)
-                .height(48.dp)
-        )
     }
 }
 
@@ -94,7 +78,7 @@ fun MyNavigation(sharedPreferences: SharedPreferences) {
             OnboardingScreen(navController = navController, sharedPreferences = sharedPreferences)
         }
         composable(Profile.route) {
-            ProfileScreen(navController = navController)
+            ProfileScreen(navController = navController, sharedPreferences)
         }
     }
 }

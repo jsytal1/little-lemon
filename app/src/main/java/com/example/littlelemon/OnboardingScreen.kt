@@ -36,6 +36,7 @@ fun OnboardingScreen(navController: NavController, sharedPreferences: SharedPref
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
+        TopBar()
         UpperPanel()
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
