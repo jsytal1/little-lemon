@@ -12,21 +12,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.android.Android
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.http.ContentType
+import io.ktor.serialization.kotlinx.json.json
 
 @Composable
 fun HomeScreen(navController: NavController) {
-    Column() {
+    Column {
         TopBarLoggedIn(navController = navController)
     }
 }
 
 @Composable
-private fun TopBarLoggedIn(navController: NavController ) {
+private fun TopBarLoggedIn(navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
