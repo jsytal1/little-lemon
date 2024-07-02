@@ -61,19 +61,19 @@ fun OnboardingScreen(navController: NavController, sharedPreferences: SharedPref
                 )
                 ThemedTextField(
                     value = firstName,
-                    onValueChange = { firstName = it },
                     label = stringResource(id = R.string.first_name_label),
+                    onValueChange = { firstName = it },
                 )
                 ThemedTextField(
                     value = lastName,
+                    label = stringResource(id = R.string.last_name_label),
                     onValueChange = { lastName = it },
-                    label = stringResource(id = R.string.last_name_label)
                 )
                 ThemedTextField(
                     value = email,
+                    label = stringResource(id = R.string.email_label),
                     onValueChange = { email = it },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-                    label = stringResource(id = R.string.email_label)
                 )
             }
             ThemedButton(

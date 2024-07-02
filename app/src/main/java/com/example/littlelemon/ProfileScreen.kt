@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,7 +18,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun ProfileScreen(navController: NavController, sharedPreferences: SharedPreferences) {
@@ -55,13 +53,16 @@ fun Profile(firstName: String, lastName: String, email: String) {
             modifier = Modifier.padding(bottom = 24.dp)
         )
         ThemedTextField(
-            value = firstName, label = stringResource(id = R.string.first_name_label)
+            value = firstName,
+            label = stringResource(id = R.string.first_name_label),
         )
         ThemedTextField(
-            value = lastName, label = stringResource(id = R.string.last_name_label)
+            value = lastName,
+            label = stringResource(id = R.string.last_name_label),
         )
         ThemedTextField(
-            value = email, label = stringResource(id = R.string.email_label)
+            value = email,
+            label = stringResource(id = R.string.email_label),
         )
     }
 

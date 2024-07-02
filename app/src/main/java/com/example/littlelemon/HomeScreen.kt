@@ -2,6 +2,7 @@ package com.example.littlelemon
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,6 +17,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,11 +37,72 @@ import com.example.littlelemon.ui.theme.LittleLemonColors
 @Composable
 fun HomeScreen(navController: NavController, database: AppDatabase) {
     val databaseMenuItems by database.menuItemDao().getAll().observeAsState(emptyList())
+    var searchPhrase by remember { mutableStateOf("") }
+    var category by remember { mutableStateOf("") }
+
+    var filteredMenuItems = databaseMenuItems;
+    if (searchPhrase.isNotEmpty()) {
+        filteredMenuItems = filteredMenuItems.filter {
+            it.title.contains(searchPhrase, ignoreCase = true) || it.description.contains(
+                searchPhrase, ignoreCase = true
+            )
+        }
+    }
+    if (category.isNotEmpty()) {
+        filteredMenuItems = filteredMenuItems.filter {
+            it.category == category
+        }
+    }
 
     Column {
         TopBarLoggedIn(navController = navController)
-        HeroBanner()
-        MenuItems(menuItems = databaseMenuItems)
+        HeroBanner(searchPhrase = searchPhrase, onSearchPhraseChange = { searchPhrase = it })
+        CategoryFilter(
+            categories = databaseMenuItems.map { it.category }.distinct(),
+            category = category,
+            onCategoryChange = { category = it }
+        )
+        MenuItems(menuItems = filteredMenuItems)
+    }
+}
+
+@Composable
+fun CategoryFilter(categories: List<String>, category: String, onCategoryChange: (String) -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.SpaceAround
+    ) {
+        Text(
+            text = "All",
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier
+                .padding(8.dp)
+                .clickable(onClick = { onCategoryChange("") })
+                .clip(RoundedCornerShape(16.dp))
+                .background(
+                    if ("" == category) LittleLemonColors.DarkGreen else LittleLemonColors.Gray
+                )
+                .padding(8.dp)
+        )
+
+        categories.forEach {
+            Text(
+                text = it,
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .clickable(onClick = { onCategoryChange(it) })
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(
+                        if (it == category) LittleLemonColors.DarkGreen else LittleLemonColors.Gray
+                    )
+                    .padding(8.dp)
+            )
+        }
     }
 }
 
@@ -62,13 +127,15 @@ fun MenuItem(menuItem: MenuItemRoom) {
                 text = menuItem.title,
                 style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.fillMaxWidth(.7f)
+                modifier = Modifier
+                    .fillMaxWidth(.7f)
                     .padding(bottom = 8.dp)
             )
             Text(
                 text = menuItem.description,
                 style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.fillMaxWidth(.7f)
+                modifier = Modifier
+                    .fillMaxWidth(.7f)
                     .padding(bottom = 8.dp)
 
             )
@@ -100,7 +167,7 @@ fun MenuItem(menuItem: MenuItemRoom) {
 }
 
 @Composable
-fun HeroBanner() {
+fun HeroBanner(searchPhrase: String, onSearchPhraseChange: (String) -> Unit) {
     Column(
         modifier = Modifier
             .background(LittleLemonColors.DarkGreen)
@@ -137,6 +204,13 @@ fun HeroBanner() {
                 contentDescription = "Hero"
             )
         }
+        ThemedTextField(
+            value = searchPhrase,
+            label = "Enter Search Phrase",
+            usePlaceholder = true,
+            onValueChange = onSearchPhraseChange
+        )
+
     }
 }
 
