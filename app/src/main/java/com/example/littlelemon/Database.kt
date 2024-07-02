@@ -3,6 +3,7 @@ package com.example.littlelemon
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Database
+import androidx.room.DeleteTable
 import androidx.room.Entity
 import androidx.room.Insert
 import androidx.room.PrimaryKey

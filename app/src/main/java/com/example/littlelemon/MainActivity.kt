@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             LittleLemonTheme {
-                AppScreen(sharedPreferences)
+                AppScreen(sharedPreferences, database)
             }
         }
 
@@ -78,20 +78,20 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-private fun AppScreen(sharedPreferences: SharedPreferences) {
+private fun AppScreen(sharedPreferences: SharedPreferences, database: AppDatabase) {
     Scaffold {
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it)
         ) {
-            MyNavigation(sharedPreferences)
+            MyNavigation(sharedPreferences, database)
         }
     }
 }
 
 @Composable
-fun MyNavigation(sharedPreferences: SharedPreferences) {
+fun MyNavigation(sharedPreferences: SharedPreferences, database: AppDatabase) {
     val firstName = sharedPreferences.getString("firstName", "") ?: ""
     val lastName = sharedPreferences.getString("lastName", "") ?: ""
     val email = sharedPreferences.getString("email", "") ?: ""
@@ -106,7 +106,7 @@ fun MyNavigation(sharedPreferences: SharedPreferences) {
         navController = navController, startDestination = startDestination
     ) {
         composable(Home.route) {
-            HomeScreen(navController = navController)
+            HomeScreen(navController = navController, database = database)
         }
         composable(Onboarding.route) {
             OnboardingScreen(navController = navController, sharedPreferences = sharedPreferences)
