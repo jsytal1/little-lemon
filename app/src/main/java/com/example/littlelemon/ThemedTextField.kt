@@ -61,8 +61,6 @@ fun ThemedTextField(
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = LittleLemonColors.White,
                 unfocusedContainerColor = LittleLemonColors.White,
-                focusedLabelColor = LittleLemonColors.White,
-                unfocusedLabelColor = LittleLemonColors.Black,
             ),
         )
     }
